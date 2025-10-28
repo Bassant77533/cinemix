@@ -11,12 +11,15 @@ interface ImovieSliderProps  {
 }
 const MovieSlider = ( { title , subtitle ,  movies ,id } : ImovieSliderProps ) => {
     
-    const sliderRef = useRef(null) ; 
+    const sliderRef = useRef<HTMLDivElement>(null) ; 
     const [isScrolling , setIsScrolling ] = useState(false) ; 
-    const [hoverMovieId , setHoverMoviesId] = useState<number | null >(null) 
-    const {openMoviesDetails } = useMovies() ; 
+     const {openMoviesDetails } = useMovies() ; 
+
+
     const scroll = (direction : string )=>{
         if(isScrolling) return ; 
+        if (!sliderRef.current) return; // ✅ null check
+
         setIsScrolling(true) ; 
         const {current} = sliderRef ; 
         const scrollAmount = direction == "left" ? 
@@ -62,8 +65,7 @@ const MovieSlider = ( { title , subtitle ,  movies ,id } : ImovieSliderProps ) =
                     >
                     { movies.map((movie , index )=>
                     <div key={index} className='min-w-[200px] md:min-w-[240px] snap-start relative group cursor-pointer'
-                    onMouseEnter={()=> setHoverMoviesId(movie.id)}
-                    onMouseLeave={()=> setHoverMoviesId(null) }
+                  
                     onClick = {()=> handleMovieClick(movie.id)}
                     
                     >

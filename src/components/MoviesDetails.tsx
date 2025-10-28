@@ -34,7 +34,7 @@ const MovieDetails = ({ selectedMovieId, closeMoviesDetails }: MovieDetailsProps
   }, [selectedMovieId]);
 
   // 🕒 Format helpers
-  const formatRunTime = (minutes: number) => {
+  const formatRunTime = (minutes: number | undefined) => {
     if (!minutes) return "N/A";
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
@@ -153,7 +153,7 @@ const MovieDetails = ({ selectedMovieId, closeMoviesDetails }: MovieDetailsProps
                   {formatRating(movie.vote_average)}
                 </span>
               </div>
-              <span className="text-neutral-300">{formatRunTime(movie.runtime)}</span>
+              <span className="text-neutral-300">{  formatRunTime(movie.runtime)}</span>
               {movie.adult && (
                 <span className="bg-red-500/80 text-white px-2 py-0.5 rounded text-xs">
                   18+
@@ -163,7 +163,7 @@ const MovieDetails = ({ selectedMovieId, closeMoviesDetails }: MovieDetailsProps
 
             {/* Genres */}
             <div className="flex flex-wrap gap-2 mt-3">
-              {movie.genres.map((g) => (
+              {movie.genres &&  movie.genres.map((g) => (
                 <span
                   key={g.id}
                   className="bg-neutral-700 text-neutral-300 px-3 py-1 rounded-full text-xs"

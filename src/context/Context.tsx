@@ -26,6 +26,8 @@ export interface Movie {
   budget : number ; 
   status : string ; 
   vote_count: number;
+  homepage : string ; 
+  imdb_id : number 
 }
 
 export interface ProductionCompany {
